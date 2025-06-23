@@ -1,0 +1,10 @@
+.DS_Store
+.yarn/install-state.gz
+dist/
+node_modules/
+xcuserdata/
+
+!example/
+!example-macos/
+!packages/react-native-kit-template/
+!packages/react-native-kit-macos-template/

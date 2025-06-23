@@ -1,0 +1,46 @@
+{
+  "name": "react-native-kit",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "create-react-native-kit": "./dist/create-react-native-kit.js",
+    "react-native-kit": "./dist/react-native-kit.js"
+  },
+  "files": [
+    "src",
+    "dist",
+    "ios",
+    "macos"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && pkgroll"
+  },
+  "dependencies": {
+    "commander": "^14.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.32",
+    "pkgroll": "^2.13.1",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "description": "Use React Native in your iOS & macOS apps in just one command, no Xcode required.",
+  "keywords": [
+    "react",
+    "react-native",
+    "react-native-macos",
+    "ios",
+    "macos",
+    "swift",
+    "swift-package-manager"
+  ],
+  "homepage": "https://github.com/victorhenrion/react-native-kit#readme",
+  "bugs": {
+    "url": "https://github.com/victorhenrion/react-native-kit/issues"
+  },
+  "repository": "github:victorhenrion/react-native-kit",
+  "license": "MIT",
+  "author": "Victor Henrion <bonjour@victor.id> (https://github.com/victorhenrion)"
+}

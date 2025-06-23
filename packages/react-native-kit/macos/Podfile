@@ -1,0 +1,84 @@
+require_relative '../node_modules/react-native-macos/scripts/react_native_pods'
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+
+platform :macos, '11.0'
+prepare_react_native_project!
+
+linkage = ENV['USE_FRAMEWORKS']
+if linkage != nil
+  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+  use_frameworks! :linkage => linkage.to_sym
+end
+
+def find_and_replace(dir, findstr, replacestr)
+  Dir[dir].each do |name|
+      text = File.read(name)
+      replace = text.gsub(findstr,replacestr)
+      if text != replace
+          puts "Fix: " + name
+          File.open(name, "w") { |file| file.puts replace }
+          STDOUT.flush
+      end
+  end
+  Dir[dir + '*/'].each(&method(:find_and_replace))
+end
+
+target 'ReactNativeKit' do
+  config = use_native_modules!
+
+  use_react_native!(
+    :path => '../node_modules/react-native-macos',
+    # An absolute path to your application root.
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+
+  post_install do |installer|
+    # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
+    react_native_post_install(
+      installer,
+      '../node_modules/react-native-macos',
+      :mac_catalyst_enabled => false,
+      :ccache_enabled => true
+    )
+
+    # Workaround for iOS non-public selectors issue 
+    # https://github.com/facebook/react-native/issues/31507
+    find_and_replace("../node_modules/react-native-macos/React/Base/RCTKeyCommands.m",
+                                "_modifierFlags",
+                                "_modifierEventFlags")
+    find_and_replace("../node_modules/react-native-macos/React/Base/RCTKeyCommands.m",
+                            "_modifiedInput",
+                            "_modifiedEventInput")
+    find_and_replace("../node_modules/react-native-macos/React/Base/RCTKeyCommands.m",
+                            "_isKeyDown",
+                            "_isKeyEventDown")
+    find_and_replace("../node_modules/react-native-macos/React/DevSupport/RCTPackagerClient.h",
+                            "handleNotification",
+                            "handlePackageNotification")
+
+    find_and_replace("../node_modules/react-native-macos/React/DevSupport/RCTPackagerConnection.mm",
+                            "handleNotification",
+                            "handlePackageNotification")
+
+    PLIST_BUDDY_PATH = '/usr/libexec/PlistBuddy'
+
+    targets_to_skip_verification = [
+      'Yoga',
+      'YogaKit'
+    ]
+    
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        if targets_to_skip_verification.include?(target.name)
+          target.build_configurations.each do |config|
+            puts "Updating OTHER_SWIFT_FLAGS for target #{target.name} to include -no-verify-emitted-module-interface"
+  
+            # It's very important that the "$(inherited)" part is added, otherwise this will
+            # overwrite all other flags and cause a whole separate set of issues
+            config.build_settings['OTHER_SWIFT_FLAGS'] = '$(inherited) -no-verify-emitted-module-interface'
+          end
+        end
+      end
+    end
+  end
+end

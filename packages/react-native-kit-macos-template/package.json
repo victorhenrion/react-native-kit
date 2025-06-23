@@ -1,0 +1,29 @@
+{
+  "name": "react-native-kit-macos-template",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "react-native start",
+    "macos": "react-native-kit macos"
+  },
+  "dependencies": {
+    "react": "19.1.0",
+    "react-native": "0.78.2",
+    "react-native-kit": "^0.1.0",
+    "react-native-macos": "patch:react-native-macos@npm%3A0.78.3#~/.yarn/patches/react-native-macos-npm-0.78.3-fd14e3ca94.patch"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.27.4",
+    "@babel/preset-env": "^7.27.2",
+    "@babel/runtime": "^7.27.6",
+    "@react-native-community/cli": "15.0.1",
+    "@react-native/babel-preset": "0.78.2",
+    "@react-native/metro-config": "0.78.2",
+    "@react-native/typescript-config": "0.78.2",
+    "@types/react": "~19.1.8",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "private": true
+}

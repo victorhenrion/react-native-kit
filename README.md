@@ -1,0 +1,40 @@
+# react-native-kit
+
+Use React Native in your iOS & macOS apps in just one command, no Xcode required.
+
+> This is an experiment with the goal of making React Native really easy to install and integrate in existing apps, especially those that don't use Xcode (using Swift Package Manager directly or alongside new initiatives such as [Xtool](https://github.com/xtool-org/xtool)).\
+> As such, the developer experience is not far from optimal and it hasn't been tested for production use. I am still exploring potential pathways for DX, including an SPM plugin.
+
+## Installation
+
+`react-native-kit` is not yet available on NPM (the existing package is a homonym).
+
+## Usage
+
+Here's how you can run the example:
+
+```bash
+# Clone this repository
+git clone https://github.com/victorhenrion/react-native-kit.git
+
+# Compile framework
+cd examples/ios/Artifacts/ExampleReactNative
+yarn react-native-kit ios
+
+# Compile app & run in Simulator
+brew install xtool-org/tap/xtool
+xtool setup
+cd examples/ios
+open -a Simulator.app
+xtool dev -s
+
+# Start Metro
+cd examples/ios/Artifacts/ExampleReactNative
+yarn start
+
+# Open "Example" app in Simulator, you should see "Hello from React Native"
+```
+
+## Notes
+
+This project is inspired and builds upon the [ios-rn-prebuilt](https://github.com/wafflestudio/ios-rn-prebuilt) repository by @wafflestudio, thanks to them!
