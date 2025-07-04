@@ -72,6 +72,7 @@ async function execute({ platform, targetDir, configs, sdks }: Options) {
                     `-sdk ${sdk}`,
                     `-archivePath "./temp/${config}/${sdk}/ReactNativeKit.xcarchive"`,
                     `archive`,
+                    `EXCLUDED_ARCHS=x86_64`,
                 ].join(` `),
                 { cwd: targetDir, stdio: 'inherit' },
             )
