@@ -19,7 +19,7 @@
     "commander": "^14.0.0"
   },
   "devDependencies": {
-    "@types/node": "^22.15.32",
+    "@types/node": "^22.16.0",
     "pkgroll": "^2.13.1",
     "typescript": "^5.8.3"
   },

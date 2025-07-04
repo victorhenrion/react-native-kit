@@ -5,7 +5,7 @@
         "packages/*"
     ],
     "devDependencies": {
-        "dprint": "^0.50.0"
+        "dprint": "^0.50.1"
     },
     "resolutions": {
         "react-native-kit": "workspace:*"

@@ -6,19 +6,19 @@
     "ios": "react-native-kit ios"
   },
   "dependencies": {
-    "react": "19.1.0",
-    "react-native": "0.80.0",
-    "react-native-kit": "^0.1.0"
+    "react": "19.0.0",
+    "react-native": "0.79.5",
+    "react-native-kit": "0.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.27.4",
-    "@babel/preset-env": "^7.27.2",
-    "@babel/runtime": "^7.27.6",
-    "@react-native-community/cli": "^19.0.0",
-    "@react-native/babel-preset": "0.80.0",
-    "@react-native/metro-config": "0.80.0",
-    "@react-native/typescript-config": "0.80.0",
-    "@types/react": "~19.1.8",
+    "@babel/core": "~7.27.7",
+    "@babel/preset-env": "~7.27.2",
+    "@babel/runtime": "~7.27.6",
+    "@react-native-community/cli": "19.0.0",
+    "@react-native/babel-preset": "0.79.5",
+    "@react-native/metro-config": "0.79.5",
+    "@react-native/typescript-config": "0.79.5",
+    "@types/react": "~19.0.14",
     "typescript": "^5.8.3"
   },
   "engines": {
