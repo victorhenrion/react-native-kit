@@ -34,21 +34,12 @@ target 'ReactNativeKit' do
 
     PLIST_BUDDY_PATH = '/usr/libexec/PlistBuddy'
 
-    targets_to_skip_verification = [
-      'Yoga',
-      'YogaKit'
-    ]
-    
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
-        if targets_to_skip_verification.include?(target.name)
-          target.build_configurations.each do |config|
-            puts "Updating OTHER_SWIFT_FLAGS for target #{target.name} to include -no-verify-emitted-module-interface"
-  
-            # It's very important that the "$(inherited)" part is added, otherwise this will
-            # overwrite all other flags and cause a whole separate set of issues
-            config.build_settings['OTHER_SWIFT_FLAGS'] = '$(inherited) -no-verify-emitted-module-interface'
-          end
+        # Preserve anything already in OTHER_SWIFT_FLAGS and just append the skip-flag once
+        existing = config.build_settings['OTHER_SWIFT_FLAGS'] || '$(inherited)'
+        unless existing.include?('-no-verify-emitted-module-interface')
+          config.build_settings['OTHER_SWIFT_FLAGS'] = "#{existing} -no-verify-emitted-module-interface"
         end
       end
     end
