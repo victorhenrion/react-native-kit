@@ -59,6 +59,24 @@ async function execute({ platform, targetDir, configs, sdks }: Options) {
         { cwd: targetDir, stdio: 'inherit' },
     )
 
+    // patch expo-configure-project.sh
+    const tsf = path.join(targetDir, 'Pods', 'Target Support Files')
+    const scripts = await Array.fromAsync(fs.glob('**/expo-configure-project.sh', { cwd: tsf, withFileTypes: false }))
+
+    for (const scriptRelPath of scripts) {
+        const scriptPath = path.join(tsf, scriptRelPath)
+        const providerPath = path.join(scriptPath, '../ExpoModulesProvider.swift')
+        const scriptContents = await fs.readFile(scriptPath, 'utf-8')
+        const patchedContents = scriptContents.concat(
+            `\n`,
+            `sed -E -i.bak`,
+            ` -e 's/^[[:space:]]*import[[:space:]]+(Expo([[:alnum:]_]+)?|EX[[:alnum:]_]+)/@_implementationOnly import \\1/g'`,
+            ` -e 's/public[[:space:]]+class[[:space:]]+ExpoModulesProvider/internal class ExpoModulesProvider/g'`,
+            ` "${providerPath}"`,
+        )
+        await fs.writeFile(scriptPath, patchedContents)
+    }
+
     for (const config of configs) {
         // build frameworks for each sdk
         for (const sdk of sdks) {

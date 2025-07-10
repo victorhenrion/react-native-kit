@@ -6,6 +6,7 @@
     "macos": "react-native-kit macos"
   },
   "dependencies": {
+    "expo": "53.0.19",
     "react": "19.0.0",
     "react-native": "0.78.2",
     "react-native-kit": "0.1.0",

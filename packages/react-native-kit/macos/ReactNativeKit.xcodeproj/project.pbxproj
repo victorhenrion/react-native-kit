@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		57806DC22E1FADB100D40E41 /* ExpoBoostrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57806DC12E1FADAE00D40E41 /* ExpoBoostrap.swift */; };
 		CE1D00B82A5DB4C300C94550 /* React.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D00B72A5DB4C300C94550 /* React.swift */; };
 		CEAA84032BEBBACF004908B8 /* RNEventEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA84022BEBBACF004908B8 /* RNEventEmitter.swift */; };
 		CEAA84052BEBBB4E004908B8 /* RNEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA84042BEBBB4E004908B8 /* RNEventEmitter.m */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		57806DC12E1FADAE00D40E41 /* ExpoBoostrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpoBoostrap.swift; sourceTree = "<group>"; };
 		CE1D00AD2A5DB49400C94550 /* ReactNativeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ReactNativeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1D00B72A5DB4C300C94550 /* React.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = React.swift; sourceTree = "<group>"; };
 		CEAA84022BEBBACF004908B8 /* RNEventEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNEventEmitter.swift; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 		CE1D00AF2A5DB49400C94550 /* ReactNativeKit */ = {
 			isa = PBXGroup;
 			children = (
+				57806DC12E1FADAE00D40E41 /* ExpoBoostrap.swift */,
 				CE1D00B72A5DB4C300C94550 /* React.swift */,
 				CEAA84002BEBBABB004908B8 /* EventEmitter */,
 				CEF992E02BF2604800F0FFA4 /* Logger.swift */,
@@ -152,6 +155,7 @@
 				CEF992E12BF2604800F0FFA4 /* Logger.swift in Sources */,
 				CE1D00B82A5DB4C300C94550 /* React.swift in Sources */,
 				CEAA84072BEBC11C004908B8 /* EventEmitter.swift in Sources */,
+				57806DC22E1FADB100D40E41 /* ExpoBoostrap.swift in Sources */,
 				CEAA84052BEBBB4E004908B8 /* RNEventEmitter.m in Sources */,
 				CEAA84032BEBBACF004908B8 /* RNEventEmitter.swift in Sources */,
 			);

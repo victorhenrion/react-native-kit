@@ -1,3 +1,16 @@
+require 'json'
+
+def expo_enabled
+  pkg = File.expand_path('../package.json', __dir__)
+  !!(File.exist?(pkg) && JSON.parse(File.read(pkg)).dig('dependencies', 'expo'))
+rescue
+  false
+end
+
+if expo_enabled == true
+  require File.join(File.dirname(`node --print "require.resolve('expo/package.json')"`), "scripts/autolinking")
+end
+
 # React Native pods
 require Pod::Executable.execute_command('node', ['-p',
   'require.resolve(
@@ -15,6 +28,10 @@ if linkage != nil
 end
 
 target 'ReactNativeKit' do
+  if expo_enabled == true
+    use_expo_modules!
+  end
+
   config = use_native_modules!
 
   use_react_native!(

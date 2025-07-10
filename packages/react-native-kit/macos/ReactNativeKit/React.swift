@@ -16,6 +16,7 @@ public func makeReactView(
     initialProperties: [AnyHashable: Any]?,
     backgroundColor: NSColor = .clear
 ) -> NSView {
+    ExpoBootstrap.registerModules()
     let rootView = RCTRootView(
         bundleURL: bundleURL,
         moduleName: moduleName,

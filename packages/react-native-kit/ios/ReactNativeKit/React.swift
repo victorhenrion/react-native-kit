@@ -1,5 +1,5 @@
-@_implementationOnly import React
 import Foundation
+@_implementationOnly import React
 import UIKit
 
 /// Creates and returns a UIView configured with a React Native application.
@@ -15,9 +15,13 @@ public func makeReactView(
     moduleName: String,
     initialProperties: [AnyHashable: Any]?,
     backgroundColor: UIColor = .clear
-) -> UIView
-{
-    let rootView = RCTRootView(bundleURL: bundleURL, moduleName: moduleName, initialProperties: initialProperties)
+) -> UIView {
+    ExpoBootstrap.registerModules()
+    let rootView = RCTRootView(
+        bundleURL: bundleURL,
+        moduleName: moduleName,
+        initialProperties: initialProperties
+    )
     rootView.backgroundColor = backgroundColor
     return rootView
 }
