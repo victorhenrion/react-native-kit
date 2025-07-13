@@ -1,13 +1,13 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import process from 'node:process'
 import { program } from 'commander'
-import child from 'node:child_process'
+import cp from 'node:child_process'
 import url from 'node:url'
 
 program
     .command('macos')
     .option('--targetDir <path>', 'Path to target directory', './macos')
+    .option('--legacyArch', 'Opt out of new architecture', false)
     .action(async (opts) => {
         const targetDir = path.isAbsolute(opts.targetDir) ? opts.targetDir : path.join(process.cwd(), opts.targetDir)
 
@@ -16,6 +16,10 @@ program
             targetDir,
             configs: ['Debug', 'Release'],
             sdks: ['macosx'],
+            env: {
+                ...process.env,
+                RCT_NEW_ARCH_ENABLED: opts.legacyArch ? '0' : '1',
+            },
         })
     })
 
@@ -30,6 +34,9 @@ program
             targetDir,
             configs: ['Debug', 'Release'],
             sdks: ['iphonesimulator', 'iphoneos'],
+            env: {
+                ...process.env,
+            },
         })
     })
 
@@ -38,9 +45,10 @@ type Options = {
     targetDir: string
     configs: ('Debug' | 'Release')[]
     sdks: ('iphonesimulator' | 'iphoneos' | 'macosx')[]
+    env: NodeJS.ProcessEnv
 }
 
-async function execute({ platform, targetDir, configs, sdks }: Options) {
+async function execute({ platform, targetDir, configs, sdks, env }: Options) {
     const sourceDir = url.fileURLToPath(import.meta.resolve(`../${platform}`))
 
     await fs.rm(targetDir, { recursive: true }).catch(() => {})
@@ -49,15 +57,11 @@ async function execute({ platform, targetDir, configs, sdks }: Options) {
     // copy the platform directory from the react-native-kit package
     await fs.cp(sourceDir, targetDir, { recursive: true })
 
+    const exec = (...parts: string[]) => cp.execSync(parts.join(' '), { cwd: targetDir, stdio: 'inherit', env })
+
     // install pods
-    child.execSync(
-        ['bundle', 'install'].join(' '),
-        { cwd: targetDir, stdio: 'inherit' },
-    )
-    child.execSync(
-        ['bundle', 'exec', 'pod', 'install'].join(' '),
-        { cwd: targetDir, stdio: 'inherit' },
-    )
+    exec('bundle', 'install')
+    exec('bundle', 'exec', 'pod', 'install')
 
     // patch expo-configure-project.sh
     const tsf = path.join(targetDir, 'Pods', 'Target Support Files')
@@ -80,32 +84,26 @@ async function execute({ platform, targetDir, configs, sdks }: Options) {
     for (const config of configs) {
         // build frameworks for each sdk
         for (const sdk of sdks) {
-            child.execSync(
-                [
-                    `xcodebuild`,
-                    `-workspace ReactNativeKit.xcworkspace`,
-                    `-scheme ReactNativeKit`,
-                    `-destination "generic/platform=${sdk}"`,
-                    `-configuration ${config}`,
-                    `-sdk ${sdk}`,
-                    `-archivePath "./temp/${config}/${sdk}/ReactNativeKit.xcarchive"`,
-                    `archive`,
-                    `EXCLUDED_ARCHS=x86_64`,
-                ].join(` `),
-                { cwd: targetDir, stdio: 'inherit' },
+            exec(
+                `xcodebuild`,
+                `-workspace ReactNativeKit.xcworkspace`,
+                `-scheme ReactNativeKit`,
+                `-destination "generic/platform=${sdk}"`,
+                `-configuration ${config}`,
+                `-sdk ${sdk}`,
+                `-archivePath "./temp/${config}/${sdk}/ReactNativeKit.xcarchive"`,
+                `archive`,
+                `EXCLUDED_ARCHS=x86_64`,
             )
         }
 
         // on macos, hermes must be built as an xcframework
         if (platform === 'macos') {
-            child.execSync(
-                [
-                    `xcodebuild`,
-                    `-create-xcframework`,
-                    `-framework "./Pods/hermes-engine/destroot/Library/Frameworks/macosx/hermes.framework"`,
-                    `-output "./Pods/hermes-engine/destroot/Library/Frameworks/macosx/hermes.xcframework"`,
-                ].join(' '),
-                { cwd: targetDir, stdio: 'inherit' },
+            exec(
+                `xcodebuild`,
+                `-create-xcframework`,
+                `-framework "./Pods/hermes-engine/destroot/Library/Frameworks/macosx/hermes.framework"`,
+                `-output "./Pods/hermes-engine/destroot/Library/Frameworks/macosx/hermes.xcframework"`,
             )
         }
 
@@ -123,16 +121,13 @@ async function execute({ platform, targetDir, configs, sdks }: Options) {
         }
 
         // combine our frameworks into a single xcframework in output
-        child.execSync(
-            [
-                `xcodebuild`,
-                `-create-xcframework`,
-                ...sdks.map((sdk) =>
-                    `-framework "./temp/${config}/${sdk}/ReactNativeKit.xcarchive/Products/Library/Frameworks/ReactNativeKit.framework"`
-                ),
-                `-output "./output/${config}/ReactNativeKit.xcframework"`,
-            ].join(' '),
-            { cwd: targetDir, stdio: 'inherit' },
+        exec(
+            `xcodebuild`,
+            `-create-xcframework`,
+            ...sdks.map((sdk) =>
+                `-framework "./temp/${config}/${sdk}/ReactNativeKit.xcarchive/Products/Library/Frameworks/ReactNativeKit.framework"`
+            ),
+            `-output "./output/${config}/ReactNativeKit.xcframework"`,
         )
     }
 }

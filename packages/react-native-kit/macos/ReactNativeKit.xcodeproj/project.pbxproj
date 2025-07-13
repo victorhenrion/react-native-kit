@@ -7,22 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		575AAF5F2E241B1800AC212C /* ReactNativeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575AAF5C2E241B1800AC212C /* ReactNativeView.swift */; };
+		575AAF602E241B1800AC212C /* ReactNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575AAF5D2E241B1800AC212C /* ReactNativeViewController.swift */; };
+		575AAF622E241B1800AC212C /* ReactNativeKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575AAF582E241B1800AC212C /* ReactNativeKit.swift */; };
 		57806DC22E1FADB100D40E41 /* ExpoBoostrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57806DC12E1FADAE00D40E41 /* ExpoBoostrap.swift */; };
-		CE1D00B82A5DB4C300C94550 /* React.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D00B72A5DB4C300C94550 /* React.swift */; };
-		CEAA84032BEBBACF004908B8 /* RNEventEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA84022BEBBACF004908B8 /* RNEventEmitter.swift */; };
-		CEAA84052BEBBB4E004908B8 /* RNEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA84042BEBBB4E004908B8 /* RNEventEmitter.m */; };
-		CEAA84072BEBC11C004908B8 /* EventEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA84062BEBC11C004908B8 /* EventEmitter.swift */; };
-		CEF992E12BF2604800F0FFA4 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF992E02BF2604800F0FFA4 /* Logger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		575AAF582E241B1800AC212C /* ReactNativeKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactNativeKit.swift; sourceTree = "<group>"; };
+		575AAF5C2E241B1800AC212C /* ReactNativeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactNativeView.swift; sourceTree = "<group>"; };
+		575AAF5D2E241B1800AC212C /* ReactNativeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactNativeViewController.swift; sourceTree = "<group>"; };
 		57806DC12E1FADAE00D40E41 /* ExpoBoostrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpoBoostrap.swift; sourceTree = "<group>"; };
 		CE1D00AD2A5DB49400C94550 /* ReactNativeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ReactNativeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE1D00B72A5DB4C300C94550 /* React.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = React.swift; sourceTree = "<group>"; };
-		CEAA84022BEBBACF004908B8 /* RNEventEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNEventEmitter.swift; sourceTree = "<group>"; };
-		CEAA84042BEBBB4E004908B8 /* RNEventEmitter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNEventEmitter.m; sourceTree = "<group>"; };
-		CEAA84062BEBC11C004908B8 /* EventEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEmitter.swift; sourceTree = "<group>"; };
-		CEF992E02BF2604800F0FFA4 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,21 +52,11 @@
 			isa = PBXGroup;
 			children = (
 				57806DC12E1FADAE00D40E41 /* ExpoBoostrap.swift */,
-				CE1D00B72A5DB4C300C94550 /* React.swift */,
-				CEAA84002BEBBABB004908B8 /* EventEmitter */,
-				CEF992E02BF2604800F0FFA4 /* Logger.swift */,
+				575AAF582E241B1800AC212C /* ReactNativeKit.swift */,
+				575AAF5C2E241B1800AC212C /* ReactNativeView.swift */,
+				575AAF5D2E241B1800AC212C /* ReactNativeViewController.swift */,
 			);
 			path = ReactNativeKit;
-			sourceTree = "<group>";
-		};
-		CEAA84002BEBBABB004908B8 /* EventEmitter */ = {
-			isa = PBXGroup;
-			children = (
-				CEAA84062BEBC11C004908B8 /* EventEmitter.swift */,
-				CEAA84022BEBBACF004908B8 /* RNEventEmitter.swift */,
-				CEAA84042BEBBB4E004908B8 /* RNEventEmitter.m */,
-			);
-			path = EventEmitter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,12 +138,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEF992E12BF2604800F0FFA4 /* Logger.swift in Sources */,
-				CE1D00B82A5DB4C300C94550 /* React.swift in Sources */,
-				CEAA84072BEBC11C004908B8 /* EventEmitter.swift in Sources */,
+				575AAF5F2E241B1800AC212C /* ReactNativeView.swift in Sources */,
+				575AAF602E241B1800AC212C /* ReactNativeViewController.swift in Sources */,
+				575AAF622E241B1800AC212C /* ReactNativeKit.swift in Sources */,
 				57806DC22E1FADB100D40E41 /* ExpoBoostrap.swift in Sources */,
-				CEAA84052BEBBB4E004908B8 /* RNEventEmitter.m in Sources */,
-				CEAA84032BEBBACF004908B8 /* RNEventEmitter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
