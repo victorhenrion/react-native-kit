@@ -19,8 +19,8 @@
     "commander": "^14.0.0"
   },
   "devDependencies": {
-    "@types/node": "^22.16.0",
-    "pkgroll": "^2.13.1",
+    "@types/node": "^22.16.3",
+    "pkgroll": "^2.14.3",
     "typescript": "^5.8.3"
   },
   "engines": {
