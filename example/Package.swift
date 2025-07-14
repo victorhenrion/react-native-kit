@@ -18,11 +18,11 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "ReactNativeKit",
-            path: "./ReactNative/ios/output/Debug/ReactNativeKit.xcframework"
+            path: "./ReactNative/ios/kit/Debug/ReactNativeKit.xcframework"
         ),
         .binaryTarget(
             name: "hermes",
-            path: "./ReactNative/ios/output/Debug/hermes.xcframework"
+            path: "./ReactNative/ios/kit/Debug/hermes.xcframework"
         ),
         .target(
             name: "Example",
