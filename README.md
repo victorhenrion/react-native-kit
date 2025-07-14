@@ -35,6 +35,10 @@ yarn start
 # Open "Example" app in Simulator, you should see "Hello from React Native"
 ```
 
+## Tips
+
+Always use `--clean` when updating `react-native-kit` or anything other than Pods.
+
 ## Notes
 
 This project is inspired and builds upon the [ios-rn-prebuilt](https://github.com/wafflestudio/ios-rn-prebuilt) repository by @wafflestudio, thanks to them!

@@ -9,7 +9,7 @@ class DevBundle: Bundle, @unchecked Sendable {
 }
 
 @main
-struct MyApp: App {
+struct ExampleApp: App {
     init() {
         ExpoBootstrap.registerModules()
         ReactNativeBrownfield.shared.bundle = DevBundle()
@@ -20,7 +20,7 @@ struct MyApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ReactNativeView(moduleName: "Hello")
+            ReactNativeView(moduleName: "App")
         }
     }
 }
