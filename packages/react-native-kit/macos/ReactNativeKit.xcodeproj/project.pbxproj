@@ -7,16 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		575AAF5F2E241B1800AC212C /* ReactNativeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575AAF5C2E241B1800AC212C /* ReactNativeView.swift */; };
-		575AAF602E241B1800AC212C /* ReactNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575AAF5D2E241B1800AC212C /* ReactNativeViewController.swift */; };
 		575AAF622E241B1800AC212C /* ReactNativeKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575AAF582E241B1800AC212C /* ReactNativeKit.swift */; };
 		57806DC22E1FADB100D40E41 /* ExpoBoostrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57806DC12E1FADAE00D40E41 /* ExpoBoostrap.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		575AAF582E241B1800AC212C /* ReactNativeKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactNativeKit.swift; sourceTree = "<group>"; };
-		575AAF5C2E241B1800AC212C /* ReactNativeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactNativeView.swift; sourceTree = "<group>"; };
-		575AAF5D2E241B1800AC212C /* ReactNativeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactNativeViewController.swift; sourceTree = "<group>"; };
 		57806DC12E1FADAE00D40E41 /* ExpoBoostrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpoBoostrap.swift; sourceTree = "<group>"; };
 		CE1D00AD2A5DB49400C94550 /* ReactNativeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ReactNativeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -53,8 +49,6 @@
 			children = (
 				57806DC12E1FADAE00D40E41 /* ExpoBoostrap.swift */,
 				575AAF582E241B1800AC212C /* ReactNativeKit.swift */,
-				575AAF5C2E241B1800AC212C /* ReactNativeView.swift */,
-				575AAF5D2E241B1800AC212C /* ReactNativeViewController.swift */,
 			);
 			path = ReactNativeKit;
 			sourceTree = "<group>";
@@ -138,8 +132,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				575AAF5F2E241B1800AC212C /* ReactNativeView.swift in Sources */,
-				575AAF602E241B1800AC212C /* ReactNativeViewController.swift in Sources */,
 				575AAF622E241B1800AC212C /* ReactNativeKit.swift in Sources */,
 				57806DC22E1FADB100D40E41 /* ExpoBoostrap.swift in Sources */,
 			);

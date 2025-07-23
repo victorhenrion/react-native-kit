@@ -9008,7 +9008,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-brownfield-macos@workspace:packages/react-native-brownfield-macos":
+"react-native-brownfield-macos@workspace:*, react-native-brownfield-macos@workspace:packages/react-native-brownfield-macos":
   version: 0.0.0-use.local
   resolution: "react-native-brownfield-macos@workspace:packages/react-native-brownfield-macos"
   dependencies:
@@ -9101,6 +9101,7 @@ __metadata:
     expo: "npm:53.0.19"
     react: "npm:19.0.0"
     react-native: "npm:0.78.3"
+    react-native-brownfield-macos: "npm:0.1.0"
     react-native-kit: "npm:0.1.0"
     react-native-macos: "patch:react-native-macos@npm%3A0.78.3#~/.yarn/patches/react-native-macos-npm-0.78.3-fd14e3ca94.patch"
     typescript: "npm:^5.8.3"
@@ -9121,6 +9122,7 @@ __metadata:
     "@types/react": "npm:~19.0.14"
     react: "npm:19.0.0"
     react-native: "npm:0.78.3"
+    react-native-brownfield-macos: "npm:0.1.0"
     react-native-kit: "npm:0.1.0"
     react-native-macos: "patch:react-native-macos@npm%3A0.78.3#~/.yarn/patches/react-native-macos-npm-0.78.3-fd14e3ca94.patch"
     typescript: "npm:^5.8.3"
@@ -9154,6 +9156,11 @@ __metadata:
     commander: "npm:^14.0.0"
     pkgroll: "npm:^2.14.3"
     typescript: "npm:^5.8.3"
+  peerDependencies:
+    react-native-brownfield-macos: "*"
+  peerDependenciesMeta:
+    react-native-brownfield-macos:
+      optional: true
   bin:
     create-react-native-kit: ./dist/create-react-native-kit.js
     react-native-kit: ./dist/react-native-kit.js

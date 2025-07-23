@@ -11,6 +11,7 @@ program
     .option('--configs <list>', 'List of configurations to build, e.g. "Debug,Release"', 'Debug,Release')
     .option('--clean', 'Clean the macos directory', false)
     .option('--legacyArch', 'Opt out of new architecture', false)
+    .option('--frameworks <list>', 'Comma-separated list of additional frameworks to add as binary targets', '')
     .action(async (opts) => {
         await execute({
             platform: 'macos',
@@ -19,8 +20,10 @@ program
             blueprintDir: fileURLToPath(import.meta.resolve(`../macos`)),
             targetDir: parseDirOption(opts.targetDir),
             clean: opts.clean,
+            frameworks: ['ReactBrownfield', ...opts.frameworks.split(',').filter(Boolean)],
             env: {
                 RCT_NEW_ARCH_ENABLED: opts.legacyArch ? '0' : '1',
+                USE_FRAMEWORKS: 'static',
             },
         })
     })
@@ -38,6 +41,7 @@ program
             blueprintDir: fileURLToPath(import.meta.resolve(`../ios`)),
             targetDir: parseDirOption(opts.targetDir),
             clean: opts.clean,
+            frameworks: [] as any,
             env: {},
         })
     })
@@ -53,11 +57,12 @@ type Options = {
     blueprintDir: string
     targetDir: string
     clean: boolean
+    frameworks: ['ReactBrownfield', ...string[]]
     env: Record<string, string>
 }
 
 async function execute(options: Options) {
-    const { platform, sdks, configs, blueprintDir, targetDir, clean, env } = options
+    const { platform, sdks, configs, blueprintDir, targetDir, clean, frameworks, env } = options
 
     const exec = (...parts: string[]) =>
         execSync(parts.join(' '), {
@@ -125,6 +130,7 @@ async function execute(options: Options) {
                 `-configuration ${config}`,
                 `-sdk ${sdk}`,
                 `-archivePath "./kit/temp/${config}/${sdk}/ReactNativeKit.xcarchive"`,
+                `-derivedDataPath "./kit/temp/${config}/${sdk}/DerivedData"`,
                 `EXCLUDED_ARCHS=x86_64`,
             )
         }
@@ -138,7 +144,23 @@ async function execute(options: Options) {
             ),
             `-output "./kit/${config}/ReactNativeKit.xcframework"`,
         )
-        // clear temp
+    }
+
+    const createPodsXcframeworks = async (config: 'Debug' | 'Release') => {
+        for (const framework of frameworks) {
+            console.log(`[KIT] Creating ${config} ${framework}.xcframework…`)
+            exec(
+                `xcodebuild`,
+                `-create-xcframework`,
+                ...sdks.map((sdk) =>
+                    `-framework "./kit/temp/${config}/${sdk}/DerivedData/Build/Intermediates.noindex/ArchiveIntermediates/ReactNativeKit/IntermediateBuildFilesPath/UninstalledProducts/${sdk}/${framework}.framework"`
+                ),
+                `-output "./kit/${config}/${framework}.xcframework"`,
+            )
+        }
+    }
+
+    const clearTemp = async () => {
         const tempDir = path.join(targetDir, 'kit', 'temp')
         await fs.rm(tempDir, { recursive: true })
     }
@@ -182,6 +204,8 @@ async function execute(options: Options) {
     await clearOutput()
     for (const config of configs) {
         await createKitXcframework(config)
+        await createPodsXcframeworks(config)
+        await clearTemp()
         await copyPodsXcframeworks(config)
     }
 }

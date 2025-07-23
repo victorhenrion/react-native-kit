@@ -23,6 +23,14 @@
     "pkgroll": "^2.14.3",
     "typescript": "^5.8.3"
   },
+  "peerDependencies": {
+    "react-native-brownfield-macos": "*"
+  },
+  "peerDependenciesMeta": {
+    "react-native-brownfield-macos": {
+      "optional": true
+    }
+  },
   "engines": {
     "node": ">=20"
   },

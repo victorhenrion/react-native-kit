@@ -8,6 +8,7 @@
   "dependencies": {
     "react": "19.0.0",
     "react-native": "0.78.3",
+    "react-native-brownfield-macos": "0.1.0",
     "react-native-kit": "0.1.0",
     "react-native-macos": "patch:react-native-macos@npm%3A0.78.3#~/.yarn/patches/react-native-macos-npm-0.78.3-fd14e3ca94.patch"
   },

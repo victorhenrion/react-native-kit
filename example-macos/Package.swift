@@ -23,11 +23,16 @@ let package = Package(
             name: "hermes",
             path: "./ReactNative/macos/kit/Debug/hermes.xcframework"
         ),
+        .binaryTarget(
+            name: "ReactBrownfield",
+            path: "./ReactNative/macos/kit/Debug/ReactBrownfield.xcframework"
+        ),
         .executableTarget(
             name: "Example",
             dependencies: [
                 "ReactNativeKit",
                 "hermes",
+                "ReactBrownfield",
             ],
             linkerSettings: [
                 .unsafeFlags([
