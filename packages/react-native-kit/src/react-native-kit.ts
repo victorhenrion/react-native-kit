@@ -32,13 +32,14 @@ program
     .command('ios')
     .option('--targetDir <path>', 'Path to target directory', './ios')
     .option('--configs <list>', 'List of configurations to build, e.g. "Debug,Release"', 'Debug,Release')
+    .option('--sdks <list>', 'List of SDKs to build, e.g. "iphoneos,iphonesimulator"', 'iphoneos,iphonesimulator')
     .option('--clean', 'Clean codegen, Pods and DerivedData', false)
     .option('--legacyArch', 'Opt out of new architecture', false)
     .option('--frameworks <list>', 'Comma-separated list of additional frameworks to add as binary targets', '')
     .action(async (opts) => {
         await execute({
             platform: 'ios',
-            sdks: ['iphonesimulator', 'iphoneos'],
+            sdks: opts.sdks.split(','),
             configs: opts.configs.split(','),
             blueprintDir: fileURLToPath(import.meta.resolve(`../ios`)),
             targetDir: parseDirOption(opts.targetDir),
