@@ -9,7 +9,7 @@ program
     .command('macos')
     .option('--targetDir <path>', 'Path to target directory', './macos')
     .option('--configs <list>', 'List of configurations to build, e.g. "Debug,Release"', 'Debug,Release')
-    .option('--clean', 'Clean the macos directory', false)
+    .option('--clean', 'Clean codegen, Pods and DerivedData', false)
     .option('--legacyArch', 'Opt out of new architecture', false)
     .option('--frameworks <list>', 'Comma-separated list of additional frameworks to add as binary targets', '')
     .action(async (opts) => {
@@ -32,7 +32,7 @@ program
     .command('ios')
     .option('--targetDir <path>', 'Path to target directory', './ios')
     .option('--configs <list>', 'List of configurations to build, e.g. "Debug,Release"', 'Debug,Release')
-    .option('--clean', 'Clean the ios directory', false)
+    .option('--clean', 'Clean codegen, Pods and DerivedData', false)
     .option('--legacyArch', 'Opt out of new architecture', false)
     .option('--frameworks <list>', 'Comma-separated list of additional frameworks to add as binary targets', '')
     .action(async (opts) => {
@@ -53,6 +53,12 @@ program
 
 function parseDirOption(dir: string) {
     return path.isAbsolute(dir) ? dir : path.join(process.cwd(), dir)
+}
+
+async function readPodfileVersion(path: string) {
+    const contents = await fs.readFile(path, 'utf-8').catch(() => '')
+    const [, , version] = contents.match(/react-native-kit-version:(\s+)?(\d+)/) ?? []
+    return version ? Number(version) : null
 }
 
 type Options = {
@@ -76,16 +82,29 @@ async function execute(options: Options) {
             env: { ...process.env, ...env },
         })
 
-    const cleanTarget = async () => {
-        if (!clean) return
-        if (!existsSync(targetDir)) return
-        await fs.rm(targetDir, { recursive: true })
-    }
-
     const copyTarget = async () => {
         if (existsSync(targetDir)) return
         await fs.mkdir(targetDir, { recursive: true })
         await fs.cp(blueprintDir, targetDir, { recursive: true })
+    }
+
+    const checkTargetVersion = async () => {
+        const [targetVersion, blueprintVersion] = await Promise.all([
+            readPodfileVersion(path.join(targetDir, 'Podfile')),
+            readPodfileVersion(path.join(blueprintDir, 'Podfile')),
+        ])
+        if (!blueprintVersion) {
+            console.log(`[KIT] Unrecognized blueprint version, this is likely a bug.`)
+        } else if (!targetVersion || targetVersion < blueprintVersion) {
+            console.log(`[KIT] Your target dir (${blueprintDir.split('/').pop()}) is outdated. Consider deleting it.`)
+        }
+    }
+
+    const cleanTarget = async () => {
+        if (!clean) return
+        await fs.rm(path.join(targetDir, 'build'), { recursive: true, force: true }) // codegen
+        await fs.rm(path.join(targetDir, 'kit'), { recursive: true, force: true }) // clearOutputs + DerivedData
+        await fs.rm(path.join(targetDir, 'Pods'), { recursive: true, force: true }) // pods
     }
 
     const installPods = async () => {
@@ -116,10 +135,16 @@ async function execute(options: Options) {
         }
     }
 
-    const clearOutput = async () => {
-        const outputDir = path.join(targetDir, 'kit')
-        if (!existsSync(outputDir)) return
-        await fs.rm(outputDir, { recursive: true })
+    const clearOutputs = async (config: 'Debug' | 'Release') => {
+        // clear archives (which contains ReactNativeKit.framework)
+        for (const sdk of sdks) {
+            const archivePath = path.join(targetDir, 'kit', 'temp', config, sdk, 'ReactNativeKit.xcarchive')
+            await fs.rm(archivePath, { recursive: true, force: true })
+        }
+        // clear xcframeworks we created/copied
+        const outputDir = path.join(targetDir, 'kit', config)
+        await fs.rm(outputDir, { recursive: true, force: true })
+        // keeps DerivedData
     }
 
     const createKitXcframework = async (config: 'Debug' | 'Release') => {
@@ -165,11 +190,6 @@ async function execute(options: Options) {
         }
     }
 
-    const clearTemp = async () => {
-        const tempDir = path.join(targetDir, 'kit', 'temp')
-        await fs.rm(tempDir, { recursive: true })
-    }
-
     const copyPodsXcframeworks = async (config: 'Debug' | 'Release') => {
         // copy xcframeworks
         const xcframeworks = fs.glob('**/*.xcframework', {
@@ -199,18 +219,18 @@ async function execute(options: Options) {
 
     console.log(`[KIT] Computed options:`, `\n`, JSON.stringify(options, null, 2))
     console.log(`[KIT] Initializing…`)
-    await cleanTarget()
     await copyTarget()
+    await checkTargetVersion()
+    await cleanTarget()
     console.log(`[KIT] Installing pods…`)
     await installPods()
     console.log(`[KIT] Patching Expo scripts…`)
     await patchExpoScripts()
     console.log(`[KIT] Preparing to build…`)
-    await clearOutput()
     for (const config of configs) {
+        await clearOutputs(config)
         await createKitXcframework(config)
         await createPodsXcframeworks(config)
-        await clearTemp()
         await copyPodsXcframeworks(config)
     }
 }

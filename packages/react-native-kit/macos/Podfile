@@ -1,3 +1,5 @@
+# react-native-kit-version: 1
+
 require 'json'
 
 def expo_enabled
