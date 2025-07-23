@@ -24,11 +24,16 @@ let package = Package(
             name: "hermes",
             path: "./ReactNative/ios/kit/Debug/hermes.xcframework"
         ),
+        .binaryTarget(
+            name: "ReactBrownfield",
+            path: "./ReactNative/ios/kit/Debug/ReactBrownfield.xcframework"
+        ),
         .target(
             name: "Example",
             dependencies: [
                 "ReactNativeKit",
                 "hermes",
+                "ReactBrownfield",
             ],
         ),
     ]

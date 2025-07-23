@@ -1683,6 +1683,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@callstack/react-native-brownfield@npm:1.1.0":
+  version: 1.1.0
+  resolution: "@callstack/react-native-brownfield@npm:1.1.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/aef40f65b687a23ce59533a89b54300b94cb16a0d6c7048e092c8481d4bf724c92f3f8b66c1a241bb594536002516b4239a2ae1217ab1379b5c9175af99b4cbf
+  languageName: node
+  linkType: hard
+
 "@dprint/darwin-arm64@npm:0.50.1":
   version: 0.50.1
   resolution: "@dprint/darwin-arm64@npm:0.50.1"
@@ -9073,6 +9083,7 @@ __metadata:
     "@babel/core": "npm:~7.27.7"
     "@babel/preset-env": "npm:~7.27.2"
     "@babel/runtime": "npm:~7.27.6"
+    "@callstack/react-native-brownfield": "npm:1.1.0"
     "@react-native-community/cli": "npm:19.0.0"
     "@react-native/babel-preset": "npm:0.79.5"
     "@react-native/metro-config": "npm:0.79.5"
@@ -9136,6 +9147,7 @@ __metadata:
     "@babel/core": "npm:~7.27.7"
     "@babel/preset-env": "npm:~7.27.2"
     "@babel/runtime": "npm:~7.27.6"
+    "@callstack/react-native-brownfield": "npm:1.1.0"
     "@react-native-community/cli": "npm:19.0.0"
     "@react-native/babel-preset": "npm:0.79.5"
     "@react-native/metro-config": "npm:0.79.5"
@@ -9157,8 +9169,11 @@ __metadata:
     pkgroll: "npm:^2.14.3"
     typescript: "npm:^5.8.3"
   peerDependencies:
+    "@callstack/react-native-brownfield": "*"
     react-native-brownfield-macos: "*"
   peerDependenciesMeta:
+    "@callstack/react-native-brownfield":
+      optional: true
     react-native-brownfield-macos:
       optional: true
   bin:

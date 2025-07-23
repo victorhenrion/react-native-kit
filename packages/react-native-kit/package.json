@@ -24,9 +24,13 @@
     "typescript": "^5.8.3"
   },
   "peerDependencies": {
+    "@callstack/react-native-brownfield": "*",
     "react-native-brownfield-macos": "*"
   },
   "peerDependenciesMeta": {
+    "@callstack/react-native-brownfield": {
+      "optional": true
+    },
     "react-native-brownfield-macos": {
       "optional": true
     }

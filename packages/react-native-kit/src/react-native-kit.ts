@@ -33,6 +33,8 @@ program
     .option('--targetDir <path>', 'Path to target directory', './ios')
     .option('--configs <list>', 'List of configurations to build, e.g. "Debug,Release"', 'Debug,Release')
     .option('--clean', 'Clean the ios directory', false)
+    .option('--legacyArch', 'Opt out of new architecture', false)
+    .option('--frameworks <list>', 'Comma-separated list of additional frameworks to add as binary targets', '')
     .action(async (opts) => {
         await execute({
             platform: 'ios',
@@ -41,8 +43,11 @@ program
             blueprintDir: fileURLToPath(import.meta.resolve(`../ios`)),
             targetDir: parseDirOption(opts.targetDir),
             clean: opts.clean,
-            frameworks: [] as any,
-            env: {},
+            frameworks: ['ReactBrownfield', ...opts.frameworks.split(',').filter(Boolean)],
+            env: {
+                RCT_NEW_ARCH_ENABLED: opts.legacyArch ? '0' : '1',
+                USE_FRAMEWORKS: 'static',
+            },
         })
     })
 
