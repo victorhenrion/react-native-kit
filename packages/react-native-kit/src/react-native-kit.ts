@@ -9,20 +9,22 @@ program
     .command('macos')
     .option('--targetDir <path>', 'Path to target directory', './macos')
     .option('--configs <list>', 'List of configurations to build, e.g. "Debug,Release"', 'Debug,Release')
+    .option('--archs <value>', 'One of "STANDARD" (default), "ONLY_ACTIVE", or a list', 'STANDARD')
     .option('--clean', 'Clean codegen, Pods and DerivedData', false)
-    .option('--legacyArch', 'Opt out of new architecture', false)
+    .option('--reactLegacyArch', 'Opt out of React Native\'s New Architecture', false)
     .option('--frameworks <list>', 'Comma-separated list of additional frameworks to add as binary targets', '')
     .action(async (opts) => {
         await execute({
             platform: 'macos',
             sdks: ['macosx'],
             configs: opts.configs.split(','),
+            archs: opts.archs,
             blueprintDir: fileURLToPath(import.meta.resolve(`../macos`)),
             targetDir: parseDirOption(opts.targetDir),
             clean: opts.clean,
             frameworks: ['ReactBrownfield', ...opts.frameworks.split(',').filter(Boolean)],
             env: {
-                RCT_NEW_ARCH_ENABLED: opts.legacyArch ? '0' : '1',
+                RCT_NEW_ARCH_ENABLED: opts.reactLegacyArch ? '0' : '1',
                 USE_FRAMEWORKS: 'static',
             },
         })
@@ -33,20 +35,22 @@ program
     .option('--targetDir <path>', 'Path to target directory', './ios')
     .option('--configs <list>', 'List of configurations to build, e.g. "Debug,Release"', 'Debug,Release')
     .option('--sdks <list>', 'List of SDKs to build, e.g. "iphoneos,iphonesimulator"', 'iphoneos,iphonesimulator')
+    .option('--archs <value>', 'One of "STANDARD" (default), "ONLY_ACTIVE", or a list', 'STANDARD')
     .option('--clean', 'Clean codegen, Pods and DerivedData', false)
-    .option('--legacyArch', 'Opt out of new architecture', false)
+    .option('--reactLegacyArch', 'Opt out of React Native\'s New Architecture', false)
     .option('--frameworks <list>', 'Comma-separated list of additional frameworks to add as binary targets', '')
     .action(async (opts) => {
         await execute({
             platform: 'ios',
             sdks: opts.sdks.split(','),
             configs: opts.configs.split(','),
+            archs: opts.archs,
             blueprintDir: fileURLToPath(import.meta.resolve(`../ios`)),
             targetDir: parseDirOption(opts.targetDir),
             clean: opts.clean,
             frameworks: ['ReactBrownfield', ...opts.frameworks.split(',').filter(Boolean)],
             env: {
-                RCT_NEW_ARCH_ENABLED: opts.legacyArch ? '0' : '1',
+                RCT_NEW_ARCH_ENABLED: opts.reactLegacyArch ? '0' : '1',
                 USE_FRAMEWORKS: 'static',
             },
         })
@@ -66,6 +70,7 @@ type Options = {
     platform: 'ios' | 'macos'
     sdks: ('iphonesimulator' | 'iphoneos' | 'macosx')[]
     configs: ('Debug' | 'Release')[]
+    archs: 'STANDARD' | 'ONLY_ACTIVE' | string
     blueprintDir: string
     targetDir: string
     clean: boolean
@@ -74,7 +79,7 @@ type Options = {
 }
 
 async function execute(options: Options) {
-    const { platform, sdks, configs, blueprintDir, targetDir, clean, frameworks, env } = options
+    const { platform, sdks, configs, archs, blueprintDir, targetDir, clean, frameworks, env } = options
 
     const exec = (...parts: string[]) =>
         execSync(parts.join(' '), {
@@ -152,6 +157,15 @@ async function execute(options: Options) {
         // create frameworks
         for (const sdk of sdks) {
             console.log(`[KIT] Building ${config} ReactNativeKit ${sdk} framework…`)
+
+            const extras = []
+
+            if (archs === 'ONLY_ACTIVE') {
+                extras.push(`ONLY_ACTIVE_ARCH=YES`)
+            } else if (archs !== 'STANDARD') {
+                extras.push(`ARCHS=${archs}`)
+            }
+
             exec(
                 `xcodebuild`,
                 `archive`,
@@ -162,7 +176,7 @@ async function execute(options: Options) {
                 `-sdk ${sdk}`,
                 `-archivePath "./kit/temp/${config}/${sdk}/ReactNativeKit.xcarchive"`,
                 `-derivedDataPath "./kit/temp/${config}/${sdk}/DerivedData"`,
-                `EXCLUDED_ARCHS=x86_64`,
+                ...extras,
             )
         }
         // combine into xcframework
