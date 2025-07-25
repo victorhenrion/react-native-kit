@@ -28,12 +28,17 @@ let package = Package(
             name: "ReactBrownfield",
             path: "./ReactNative/ios/kit/Debug/ReactBrownfield.xcframework"
         ),
+        .binaryTarget(
+            name: "SpeedLib",
+            path: "./ReactNative/ios/kit/Debug/SpeedLib.xcframework"
+        ),
         .target(
             name: "Example",
             dependencies: [
                 "ReactNativeKit",
                 "hermes",
                 "ReactBrownfield",
+                "SpeedLib",
             ],
         ),
     ]

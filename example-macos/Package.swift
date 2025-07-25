@@ -27,12 +27,17 @@ let package = Package(
             name: "ReactBrownfield",
             path: "./ReactNative/macos/kit/Debug/ReactBrownfield.xcframework"
         ),
+        .binaryTarget(
+            name: "SpeedLib",
+            path: "./ReactNative/macos/kit/Debug/SpeedLib.xcframework"
+        ),
         .executableTarget(
             name: "Example",
             dependencies: [
                 "ReactNativeKit",
                 "hermes",
                 "ReactBrownfield",
+                "SpeedLib",
             ],
             linkerSettings: [
                 .unsafeFlags([
