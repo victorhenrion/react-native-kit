@@ -1,31 +1,39 @@
 {
   "name": "react-native-kit",
   "version": "0.1.0",
+  "homepage": "https://github.com/victorhenrion/react-native-kit/tree/main/packages/react-native-kit",
+  "description": "Use React Native in your iOS & macOS apps in just one command, no Xcode required.",
+  "license": "MIT",
+  "author": "Victor Henrion <bonjour@victor.id> (https://github.com/victorhenrion)",
   "type": "module",
   "bin": {
     "create-react-native-kit": "./dist/create-react-native-kit.js",
     "react-native-kit": "./dist/react-native-kit.js"
   },
   "files": [
-    "src",
     "dist",
     "ios",
-    "macos"
+    "macos",
+    "src"
   ],
   "scripts": {
-    "build": "rm -rf dist && pkgroll"
+    "build": "pkgroll --clean-dist",
+    "prepare": "yarn build"
   },
   "dependencies": {
     "commander": "^14.0.0"
   },
   "devDependencies": {
-    "@types/node": "^22.16.3",
-    "pkgroll": "^2.14.3",
+    "@types/node": "^22.16.5",
+    "pkgroll": "^2.14.5",
     "typescript": "^5.8.3"
   },
   "peerDependencies": {
-    "@callstack/react-native-brownfield": "*",
-    "react-native-brownfield-macos": "*"
+    "@callstack/react-native-brownfield": "~1.1.0",
+    "react": "*",
+    "react-native": "*",
+    "react-native-brownfield-macos": "~0.1.0",
+    "react-native-macos": "*"
   },
   "peerDependenciesMeta": {
     "@callstack/react-native-brownfield": {
@@ -33,26 +41,24 @@
     },
     "react-native-brownfield-macos": {
       "optional": true
+    },
+    "react-native-macos": {
+      "optional": true
     }
   },
-  "engines": {
-    "node": ">=20"
-  },
-  "description": "Use React Native in your iOS & macOS apps in just one command, no Xcode required.",
   "keywords": [
-    "react",
-    "react-native",
-    "react-native-macos",
-    "ios",
+    "brownfield",
+    "expo",
     "macos",
-    "swift",
-    "swift-package-manager"
+    "react-native-macos",
+    "react-native",
+    "react",
+    "spm",
+    "swift-package-manager",
+    "swift"
   ],
-  "homepage": "https://github.com/victorhenrion/react-native-kit#readme",
   "bugs": {
     "url": "https://github.com/victorhenrion/react-native-kit/issues"
   },
-  "repository": "github:victorhenrion/react-native-kit",
-  "license": "MIT",
-  "author": "Victor Henrion <bonjour@victor.id> (https://github.com/victorhenrion)"
+  "repository": "github:victorhenrion/react-native-kit"
 }

@@ -2,10 +2,12 @@
   "name": "react-native-brownfield-macos",
   "version": "0.1.0",
   "description": "Brownfield helpers for React Native",
-  "main": "lib/commonjs/index",
-  "module": "lib/module/index",
+  "homepage": "https://github.com/victorhenrion/react-native-kit/tree/main/packages/react-native-brownfield-macos",
+  "license": "MIT",
+  "author": "Victor <bonjour@victor.id> (https://github.com/victorhenrion)",
+  "module": "./lib/module/index.js",
+  "main": "./lib/commonjs/index.js",
   "types": "./lib/typescript/commonjs/src/index.d.ts",
-  "react-native": "src/index",
   "exports": {
     ".": {
       "import": {
@@ -15,56 +17,37 @@
       "require": {
         "types": "./lib/typescript/commonjs/src/index.d.ts",
         "default": "./lib/commonjs/index.js"
-      }
+      },
+      "source": "./src/index.ts"
     },
     "./package.json": "./package.json"
   },
   "files": [
-    "src",
     "lib",
-    "ios",
     "macos",
-    "cpp",
-    "*.podspec",
-    "!ios/build",
-    "!macos/build",
-    "!**/.*"
+    "src",
+    "*.podspec"
   ],
   "scripts": {
     "build": "bob build",
-    "prepare": "yarn build",
-    "nitrogen": "nitro-codegen"
-  },
-  "keywords": [],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/victorhenrion/speedlib.git"
-  },
-  "author": "Victor <bonjour@victor.id> (https://github.com/victorhenrion)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/victorhenrion/speedlib/issues"
-  },
-  "homepage": "https://github.com/victorhenrion/speedlib#readme",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "prepare": "yarn build"
   },
   "devDependencies": {
-    "@react-native/babel-preset": "0.78.3",
     "@types/react": "~19.0.0",
     "react": "19.0.0",
     "react-native": "0.78.3",
-    "react-native-builder-bob": "^0.37.0",
-    "typescript": "~5.8.3"
+    "react-native-builder-bob": "0.40.13",
+    "typescript": "^5.8.3"
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-macos": "*"
   },
   "codegenConfig": {
     "name": "ReactNativeBrownfield",
     "type": "modules",
-    "jsSrcsDir": "./src"
+    "jsSrcsDir": "src"
   },
   "react-native-builder-bob": {
     "source": "src",
@@ -85,10 +68,24 @@
       [
         "typescript",
         {
-          "project": "tsconfig.json",
-          "esm": true
+          "project": "tsconfig.json"
         }
       ]
     ]
-  }
+  },
+  "keywords": [
+    "brownfield",
+    "expo",
+    "macos",
+    "react-native-macos",
+    "react-native",
+    "react",
+    "spm",
+    "swift-package-manager",
+    "swift"
+  ],
+  "bugs": {
+    "url": "https://github.com/victorhenrion/react-native-kit/issues"
+  },
+  "repository": "github:victorhenrion/react-native-kit"
 }
