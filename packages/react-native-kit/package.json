@@ -6,10 +6,7 @@
   "license": "MIT",
   "author": "Victor Henrion <bonjour@victor.id> (https://github.com/victorhenrion)",
   "type": "module",
-  "bin": {
-    "create-react-native-kit": "./dist/create-react-native-kit.js",
-    "react-native-kit": "./dist/react-native-kit.js"
-  },
+  "bin": "./dist/react-native-kit.js",
   "files": [
     "dist",
     "ios",
@@ -21,7 +18,8 @@
     "prepare": "yarn build"
   },
   "dependencies": {
-    "commander": "^14.0.0"
+    "citty": "^0.1.6",
+    "valibot": "^1.1.0"
   },
   "devDependencies": {
     "@types/node": "^22.16.5",

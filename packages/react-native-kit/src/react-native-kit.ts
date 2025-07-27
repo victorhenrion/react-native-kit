@@ -1,91 +1,129 @@
 import fs from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
-import { program } from 'commander'
+import { defineCommand, runMain } from 'citty'
 import { execSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
+import * as v from 'valibot'
 
-program
-    .command('macos')
-    .option('--targetDir <path>', 'Path to target directory', './macos')
-    .option('--configs <list>', 'List of configurations to build, e.g. "Debug,Release"', 'Debug,Release')
-    .option('--archs <value>', 'One of "STANDARD" (default), "ONLY_ACTIVE", or a list', 'STANDARD')
-    .option('--clean', 'Clean codegen, Pods and DerivedData', false)
-    .option('--reactLegacyArch', 'Opt out of React Native\'s New Architecture', false)
-    .option('--frameworks <list>', 'Comma-separated list of additional frameworks to add as binary targets', '')
-    .action(async (opts) => {
-        await execute({
-            platform: 'macos',
-            sdks: ['macosx'],
-            configs: opts.configs.split(','),
-            archs: opts.archs,
-            blueprintDir: fileURLToPath(import.meta.resolve(`../macos`)),
-            targetDir: parseDirOption(opts.targetDir),
-            clean: opts.clean,
-            frameworks: ['ReactBrownfield', ...opts.frameworks.split(',').filter(Boolean)],
-            env: {
-                RCT_NEW_ARCH_ENABLED: opts.reactLegacyArch ? '0' : '1',
-                USE_FRAMEWORKS: 'static',
-            },
-        })
-    })
+runMain(defineCommand({
+    meta: {
+        name: 'react-native-kit',
+    },
+    args: {
+        platform: {
+            description: 'Platform to build, either "ios" or "macos"',
+            required: true,
+            type: 'positional',
+        },
+        sdks: {
+            description: '[iOS only] Comma-separated list among "iphoneos", "iphonesimulator"',
+            default: 'iphoneos,iphonesimulator',
+            type: 'string',
+        },
+        targetDir: {
+            description: 'Path to target directory',
+            default: './<platform>',
+            type: 'string',
+        },
+        configs: {
+            description: 'List of configurations to build',
+            default: 'Debug,Release',
+            type: 'string',
+        },
+        archs: {
+            description: '"STANDARD", "ONLY_ACTIVE", or a list of architectures',
+            default: 'STANDARD',
+            type: 'string',
+        },
+        clean: {
+            description: 'Clean codegen, Pods and DerivedData',
+            default: false,
+            type: 'boolean',
+        },
+        reactLegacyArch: {
+            description: 'Opt out of React Native\'s New Architecture',
+            default: false,
+            type: 'boolean',
+        },
+        frameworks: {
+            description: 'Comma-separated list of additional frameworks to add as binary targets',
+            default: '',
+            type: 'string',
+        },
+    },
+    run: ({ args }) =>
+        execute(v.parse(
+            optionsSchema,
+            {
+                ...({
+                    ios: {
+                        platform: 'ios',
+                        sdks: parseCsl(args.sdks) as Set<'iphoneos' | 'iphonesimulator'>,
+                    },
+                    macos: {
+                        platform: 'macos',
+                        sdks: parseCsl('macosx') as Set<'macosx'>,
+                    },
+                } as const)[v.parse(v.picklist(['ios', 'macos']), args.platform)],
 
-program
-    .command('ios')
-    .option('--targetDir <path>', 'Path to target directory', './ios')
-    .option('--configs <list>', 'List of configurations to build, e.g. "Debug,Release"', 'Debug,Release')
-    .option('--sdks <list>', 'List of SDKs to build, e.g. "iphoneos,iphonesimulator"', 'iphoneos,iphonesimulator')
-    .option('--archs <value>', 'One of "STANDARD" (default), "ONLY_ACTIVE", or a list', 'STANDARD')
-    .option('--clean', 'Clean codegen, Pods and DerivedData', false)
-    .option('--reactLegacyArch', 'Opt out of React Native\'s New Architecture', false)
-    .option('--frameworks <list>', 'Comma-separated list of additional frameworks to add as binary targets', '')
-    .action(async (opts) => {
-        await execute({
-            platform: 'ios',
-            sdks: opts.sdks.split(','),
-            configs: opts.configs.split(','),
-            archs: opts.archs,
-            blueprintDir: fileURLToPath(import.meta.resolve(`../ios`)),
-            targetDir: parseDirOption(opts.targetDir),
-            clean: opts.clean,
-            frameworks: ['ReactBrownfield', ...opts.frameworks.split(',').filter(Boolean)],
-            env: {
-                RCT_NEW_ARCH_ENABLED: opts.reactLegacyArch ? '0' : '1',
-                USE_FRAMEWORKS: 'static',
-            },
-        })
-    })
+                targetDir: parsePath(args.targetDir).replace('<platform>', args.platform),
 
-function parseDirOption(dir: string) {
-    return path.isAbsolute(dir) ? dir : path.join(process.cwd(), dir)
-}
+                configs: parseCsl(args.configs) as Set<'Debug' | 'Release'>,
 
-async function readPodfileVersion(path: string) {
-    const contents = await fs.readFile(path, 'utf-8').catch(() => '')
-    const [, , version] = contents.match(/react-native-kit-version:(\s+)?(\d+)/) ?? []
-    return version ? Number(version) : null
-}
+                archs: args.archs === 'STANDARD' || args.archs === 'ONLY_ACTIVE'
+                    ? { preset: args.archs }
+                    : { preset: 'CUSTOM', list: parseCsl(args.archs) },
 
-type Options = {
-    platform: 'ios' | 'macos'
-    sdks: ('iphonesimulator' | 'iphoneos' | 'macosx')[]
-    configs: ('Debug' | 'Release')[]
-    archs: 'STANDARD' | 'ONLY_ACTIVE' | string
-    blueprintDir: string
-    targetDir: string
-    clean: boolean
-    frameworks: ['ReactBrownfield', ...string[]]
-    env: Record<string, string>
-}
+                clean: args.clean,
 
-async function execute(options: Options) {
-    const { platform, sdks, configs, archs, blueprintDir, targetDir, clean, frameworks, env } = options
+                reactLegacyArch: args.reactLegacyArch,
+
+                frameworks: parseCsl(args.frameworks),
+            } satisfies v.InferInput<typeof optionsSchema>,
+        )),
+}))
+
+const baseOptionsSchema = v.object({
+    targetDir: v.string(),
+    configs: v.pipe(v.set(v.picklist(['Debug', 'Release'])), v.minSize(1)),
+    archs: v.variant('preset', [
+        v.object({ preset: v.literal('STANDARD') }),
+        v.object({ preset: v.literal('ONLY_ACTIVE') }),
+        v.object({ preset: v.literal('CUSTOM'), list: v.pipe(v.set(v.string()), v.minSize(1)) }),
+    ]),
+    clean: v.boolean(),
+    reactLegacyArch: v.boolean(),
+    frameworks: v.set(v.string()),
+})
+
+const optionsSchema = v.variant('platform', [
+    v.object({ // ios
+        ...baseOptionsSchema.entries,
+        platform: v.literal('ios'),
+        sdks: v.set(v.picklist(['iphoneos', 'iphonesimulator'])),
+    }),
+    v.object({ // macos
+        ...baseOptionsSchema.entries,
+        platform: v.literal('macos'),
+        sdks: v.set(v.picklist(['macosx'])),
+    }),
+])
+
+async function execute(options: v.InferOutput<typeof optionsSchema>) {
+    const { targetDir, configs, archs, clean, reactLegacyArch, frameworks, platform, sdks } = options
+
+    const blueprintDir = fileURLToPath(import.meta.resolve(`../${platform}`))
 
     const exec = (...parts: string[]) =>
         execSync(parts.join(' '), {
             cwd: targetDir,
             stdio: 'inherit',
-            env: { ...process.env, ...env },
+            env: {
+                ...process.env,
+                RCT_NEW_ARCH_ENABLED: reactLegacyArch ? '0' : '1',
+                USE_FRAMEWORKS: 'static',
+            },
         })
 
     const copyTarget = async () => {
@@ -160,10 +198,10 @@ async function execute(options: Options) {
 
             const extras = []
 
-            if (archs === 'ONLY_ACTIVE') {
+            if (archs.preset === 'ONLY_ACTIVE') {
                 extras.push(`ONLY_ACTIVE_ARCH=YES`)
-            } else if (archs !== 'STANDARD') {
-                extras.push(`ARCHS=${archs}`)
+            } else if (archs.preset === 'CUSTOM') {
+                extras.push(`ARCHS=${archs.list}`)
             }
 
             exec(
@@ -184,7 +222,7 @@ async function execute(options: Options) {
         exec(
             `xcodebuild`,
             `-create-xcframework`,
-            ...sdks.map((sdk) =>
+            ...Array.from(sdks).map((sdk) =>
                 `-framework "./kit/temp/${config}/${sdk}/ReactNativeKit.xcarchive/Products/Library/Frameworks/ReactNativeKit.framework"`
             ),
             `-output "./kit/${config}/ReactNativeKit.xcframework"`,
@@ -192,12 +230,12 @@ async function execute(options: Options) {
     }
 
     const createPodsXcframeworks = async (config: 'Debug' | 'Release') => {
-        for (const framework of frameworks) {
+        for (const framework of ['ReactBrownfield', ...frameworks]) {
             console.log(`[KIT] Creating ${config} ${framework}.xcframework…`)
             exec(
                 `xcodebuild`,
                 `-create-xcframework`,
-                ...sdks.map((sdk) =>
+                ...Array.from(sdks).map((sdk) =>
                     `-framework "./kit/temp/${config}/${sdk}/DerivedData/Build/Intermediates.noindex/ArchiveIntermediates/ReactNativeKit/IntermediateBuildFilesPath/UninstalledProducts/${sdk}/${framework}.framework"`
                 ),
                 `-output "./kit/${config}/${framework}.xcframework"`,
@@ -250,4 +288,16 @@ async function execute(options: Options) {
     }
 }
 
-program.parse(process.argv)
+function parseCsl(input: string) {
+    return new Set(input.split(',').filter(Boolean))
+}
+
+function parsePath(input: string) {
+    return path.isAbsolute(input) ? input : path.join(process.cwd(), input)
+}
+
+async function readPodfileVersion(path: string) {
+    const contents = await fs.readFile(path, 'utf-8').catch(() => '')
+    const [, , version] = contents.match(/react-native-kit-version:(\s+)?(\d+)/) ?? []
+    return version ? Number(version) : null
+}
