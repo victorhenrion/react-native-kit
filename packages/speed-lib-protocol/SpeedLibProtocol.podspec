@@ -5,7 +5,7 @@ package = JSON.parse(File.read(File.join(__dir__, "package.json")))
 Pod::Spec.new do |s|
   s.name         = "SpeedLibProtocol"
   s.version      = package["version"]
-  s.platforms    = { :ios => "15.1", :macos => "11.0"}
+  s.platforms    = { :ios => "16.0", :macos => "11.0"}
 
   s.summary      = package["description"]
   s.homepage     = package["homepage"]
