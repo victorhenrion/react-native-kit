@@ -39,3 +39,16 @@ index 1592a892d8d88c48f6c2868ffb16681f501079de..acf7a81edb7c5fca81bbb4c1c54ac312
  end
  # macOS]
  
+diff --git a/React/Base/RCTBridgeModule.h b/React/Base/RCTBridgeModule.h
+index f27e2f34dc369e31c8408e0ba41979ea43da865b..410a87c857c68cb495c32931491e54e56cfe8bfc 100644
+--- a/React/Base/RCTBridgeModule.h
++++ b/React/Base/RCTBridgeModule.h
+@@ -161,7 +161,7 @@ RCT_EXTERN_C_END
+  * Instead of overriding this, directly dispatch the code onto main queue when necessary.
+  * Example: dispatch_async(dispatch_get_main_queue, ^{ ... });
+  */
+-@property (nonatomic, strong, readonly) dispatch_queue_t methodQueue RCT_DEPRECATED;
++@property (nonatomic, assign, readonly) dispatch_queue_t methodQueue RCT_DEPRECATED;
+ 
+ /**
+  * Wrap the parameter line of your method implementation with this macro to

@@ -3,14 +3,18 @@
   "version": "1.0.0",
   "scripts": {
     "start": "react-native start",
-    "ios": "react-native-kit ios"
+    "ios": "react-native-kit ios --frameworks=SpeedLibProtocol",
+    "ios:dev": "yarn ios --configs=Debug --archs=ONLY_ACTIVE"
   },
   "dependencies": {
     "@callstack/react-native-brownfield": "~1.1.0",
     "expo": "~53.0.0",
     "react": "19.0.0",
     "react-native": "0.79.5",
-    "react-native-kit": "~0.1.0"
+    "react-native-kit": "~0.1.0",
+    "react-native-nitro-modules": "0.26.4",
+    "speed-lib": "workspace:*",
+    "speed-lib-protocol": "workspace:*"
   },
   "devDependencies": {
     "@babel/core": "~7.28.0",

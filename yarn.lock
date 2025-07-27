@@ -8733,6 +8733,9 @@ __metadata:
     react: "npm:19.0.0"
     react-native: "npm:0.79.5"
     react-native-kit: "npm:~0.1.0"
+    react-native-nitro-modules: "npm:0.26.4"
+    speed-lib: "workspace:*"
+    speed-lib-protocol: "workspace:*"
     typescript: "npm:^5.8.3"
   languageName: unknown
   linkType: soft
@@ -8755,6 +8758,9 @@ __metadata:
     react-native-brownfield-macos: "npm:~0.1.0"
     react-native-kit: "npm:~0.1.0"
     react-native-macos: "patch:react-native-macos@npm%3A0.78.3#~/.yarn/patches/react-native-macos-npm-0.78.3-fd14e3ca94.patch"
+    react-native-nitro-modules: "npm:0.26.4"
+    speed-lib: "workspace:*"
+    speed-lib-protocol: "workspace:*"
     typescript: "npm:^5.8.3"
   languageName: unknown
   linkType: soft
@@ -8881,7 +8887,7 @@ __metadata:
 
 "react-native-macos@patch:react-native-macos@npm%3A0.78.3#~/.yarn/patches/react-native-macos-npm-0.78.3-fd14e3ca94.patch":
   version: 0.78.3
-  resolution: "react-native-macos@patch:react-native-macos@npm%3A0.78.3#~/.yarn/patches/react-native-macos-npm-0.78.3-fd14e3ca94.patch::version=0.78.3&hash=88a414"
+  resolution: "react-native-macos@patch:react-native-macos@npm%3A0.78.3#~/.yarn/patches/react-native-macos-npm-0.78.3-fd14e3ca94.patch::version=0.78.3&hash=57e122"
   dependencies:
     "@jest/create-cache-key-function": "npm:^29.6.3"
     "@react-native-mac/virtualized-lists": "npm:0.78.2"
@@ -8927,7 +8933,7 @@ __metadata:
       optional: true
   bin:
     react-native: cli.js
-  checksum: 10c0/3a36cab010a52bd96a0285f8ecb98d33c227c09c61838c15e33141c6710a428ac0c65a0243712642cdabe146fa2035e18d16104f5dcd03d0c199d3c26def79ff
+  checksum: 10c0/5cb04fef8e4bb08724dcdbb28abf23d0b5db0044e774ba8cc6f6d6648709fe676d2e51abb1d8b560f703a6f1fa0d8092e67070ba4c8c5aedfac934de3bc0ebad
   languageName: node
   linkType: hard
 
@@ -9748,13 +9754,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"speed-lib-protocol@workspace:packages/speed-lib-protocol":
+"speed-lib-protocol@workspace:*, speed-lib-protocol@workspace:packages/speed-lib-protocol":
   version: 0.0.0-use.local
   resolution: "speed-lib-protocol@workspace:packages/speed-lib-protocol"
   languageName: unknown
   linkType: soft
 
-"speed-lib@workspace:packages/speed-lib":
+"speed-lib@workspace:*, speed-lib@workspace:packages/speed-lib":
   version: 0.0.0-use.local
   resolution: "speed-lib@workspace:packages/speed-lib"
   dependencies:
