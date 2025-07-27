@@ -4,19 +4,19 @@
             "type": "swift",
             "request": "launch",
             "args": [],
-            "cwd": "${workspaceFolder:react-native-kit}/example-macos",
-            "name": "Debug Example (example-macos)",
-            "program": "${workspaceFolder:react-native-kit}/example-macos/.build/debug/Example",
-            "preLaunchTask": "swift: Build Debug Example (example-macos)"
+            "cwd": "${workspaceFolder}/examples/macos",
+            "name": "Debug Example (examples/macos)",
+            "program": "${workspaceFolder}/examples/macos/.build/debug/Example",
+            "preLaunchTask": "swift: Build Debug Example (examples/macos)"
         },
         {
             "type": "swift",
             "request": "launch",
             "args": [],
-            "cwd": "${workspaceFolder:react-native-kit}/example-macos",
-            "name": "Release Example (example-macos)",
-            "program": "${workspaceFolder:react-native-kit}/example-macos/.build/release/Example",
-            "preLaunchTask": "swift: Build Release Example (example-macos)"
+            "cwd": "${workspaceFolder}/examples/macos",
+            "name": "Release Example (examples/macos)",
+            "program": "${workspaceFolder}/examples/macos/.build/release/Example",
+            "preLaunchTask": "swift: Build Release Example (examples/macos)"
         }
     ]
 }

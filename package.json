@@ -1,7 +1,6 @@
 {
     "workspaces": [
-        "example-macos/ReactNative",
-        "example/ReactNative",
+        "examples/*",
         "packages/*"
     ],
     "devDependencies": {

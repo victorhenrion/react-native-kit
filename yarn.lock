@@ -8725,9 +8725,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-kit-example@workspace:example/ReactNative":
+"react-native-kit-example@workspace:examples/ios-react":
   version: 0.0.0-use.local
-  resolution: "react-native-kit-example@workspace:example/ReactNative"
+  resolution: "react-native-kit-example@workspace:examples/ios-react"
   dependencies:
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-env": "npm:~7.28.0"
@@ -8749,9 +8749,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"react-native-kit-macos-example@workspace:example-macos/ReactNative":
+"react-native-kit-macos-example@workspace:examples/macos-react":
   version: 0.0.0-use.local
-  resolution: "react-native-kit-macos-example@workspace:example-macos/ReactNative"
+  resolution: "react-native-kit-macos-example@workspace:examples/macos-react"
   dependencies:
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-env": "npm:~7.28.0"
@@ -9763,15 +9763,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"speed-lib-protocol@workspace:*, speed-lib-protocol@workspace:packages/speed-lib-protocol":
+"speed-lib-protocol@workspace:*, speed-lib-protocol@workspace:examples/speed-lib-protocol":
   version: 0.0.0-use.local
-  resolution: "speed-lib-protocol@workspace:packages/speed-lib-protocol"
+  resolution: "speed-lib-protocol@workspace:examples/speed-lib-protocol"
   languageName: unknown
   linkType: soft
 
-"speed-lib@workspace:*, speed-lib@workspace:packages/speed-lib":
+"speed-lib@workspace:*, speed-lib@workspace:examples/speed-lib":
   version: 0.0.0-use.local
-  resolution: "speed-lib@workspace:packages/speed-lib"
+  resolution: "speed-lib@workspace:examples/speed-lib"
   dependencies:
     "@types/react": "npm:~19.0.0"
     nitro-codegen: "npm:0.26.4"

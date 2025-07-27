@@ -18,19 +18,19 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "ReactNativeKit",
-            path: "./ReactNative/ios/kit/Debug/ReactNativeKit.xcframework"
+            path: "../ios-react/ios/kit/Debug/ReactNativeKit.xcframework"
         ),
         .binaryTarget(
             name: "hermes",
-            path: "./ReactNative/ios/kit/Debug/hermes.xcframework"
+            path: "../ios-react/ios/kit/Debug/hermes.xcframework"
         ),
         .binaryTarget(
             name: "ReactBrownfield",
-            path: "./ReactNative/ios/kit/Debug/ReactBrownfield.xcframework"
+            path: "../ios-react/ios/kit/Debug/ReactBrownfield.xcframework"
         ),
         .binaryTarget(
             name: "SpeedLibProtocol",
-            path: "./ReactNative/ios/kit/Debug/SpeedLibProtocol.xcframework"
+            path: "../ios-react/ios/kit/Debug/SpeedLibProtocol.xcframework"
         ),
         .target(
             name: "Example",
