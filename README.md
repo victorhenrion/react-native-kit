@@ -17,9 +17,13 @@ Here's how you can run the example:
 # Clone this repository
 git clone https://github.com/victorhenrion/react-native-kit.git
 
+# Install & build
+yarn install
+yarn workspaces foreach --all run build
+
 # Compile framework
-cd examples/ios/Artifacts/ExampleReactNative
-yarn react-native-kit ios
+cd examples/ios-react
+yarn ios
 
 # Compile app & run in Simulator
 brew install xtool-org/tap/xtool
@@ -29,7 +33,7 @@ open -a Simulator.app
 xtool dev -s
 
 # Start Metro
-cd examples/ios/Artifacts/ExampleReactNative
+cd examples/ios-react
 yarn start
 
 # Open "Example" app in Simulator, you should see "Hello from React Native"
