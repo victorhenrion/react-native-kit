@@ -1,0 +1,90 @@
+{
+  "name": "speed-lib",
+  "version": "0.1.0",
+  "description": "Nitro Module example",
+  "homepage": "https://github.com/victorhenrion/react-native-kit/tree/main/packages/speed-lib",
+  "license": "MIT",
+  "author": "Victor <bonjour@victor.id> (https://github.com/victorhenrion)",
+  "module": "./lib/module/index.js",
+  "main": "./lib/commonjs/index.js",
+  "types": "./lib/typescript/commonjs/src/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./lib/typescript/module/src/index.d.ts",
+        "default": "./lib/module/index.js"
+      },
+      "require": {
+        "types": "./lib/typescript/commonjs/src/index.d.ts",
+        "default": "./lib/commonjs/index.js"
+      },
+      "source": "./src/index.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "nitro.json",
+    "nitrogen",
+    "Sources",
+    "src",
+    "*.podspec"
+  ],
+  "scripts": {
+    "build": "bob build",
+    "prepare": "yarn build",
+    "nitrogen": "nitro-codegen"
+  },
+  "devDependencies": {
+    "@types/react": "~19.0.0",
+    "nitro-codegen": "0.26.4",
+    "react": "19.0.0",
+    "react-native": "0.78.3",
+    "react-native-builder-bob": "0.40.13",
+    "react-native-nitro-modules": "0.26.4",
+    "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*",
+    "react-native-nitro-modules": "^0.26.0",
+    "speed-lib-protocol": "0.1.0"
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      [
+        "custom",
+        {
+          "script": "nitrogen",
+          "clean": "nitrogen/"
+        }
+      ],
+      [
+        "commonjs",
+        {
+          "esm": true
+        }
+      ],
+      [
+        "module",
+        {
+          "esm": true
+        }
+      ],
+      [
+        "typescript",
+        {
+          "project": "tsconfig.json"
+        }
+      ]
+    ]
+  },
+  "create-react-native-library": {
+    "languages": "kotlin-swift",
+    "type": "nitro-module",
+    "version": "0.51.1"
+  },
+  "private": true
+}
