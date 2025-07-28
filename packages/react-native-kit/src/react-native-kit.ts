@@ -270,7 +270,10 @@ async function execute(options: v.InferOutput<typeof optionsSchema>) {
         }
     }
 
-    console.log(`[KIT] Computed options:`, `\n`, JSON.stringify(options, null, 2))
+    console.log(
+        `[KIT] Computed options:\n`,
+        JSON.stringify(options, (_, val) => (val instanceof Set ? [...val] : val), 2),
+    )
     console.log(`[KIT] Initializing…`)
     await copyTarget()
     await checkTargetVersion()
