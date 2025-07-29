@@ -4,7 +4,7 @@
   "scripts": {
     "start": "react-native start",
     "ios": "react-native-kit ios --frameworks=SpeedLib",
-    "ios:dev": "yarn ios --configs=Debug --archs=ONLY_ACTIVE"
+    "ios:dev": "yarn ios --sdks=iphonesimulator --configs=Debug --archs=ONLY_ACTIVE"
   },
   "dependencies": {
     "@callstack/react-native-brownfield": "~1.1.0",
