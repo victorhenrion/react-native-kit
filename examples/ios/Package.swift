@@ -29,8 +29,8 @@ let package = Package(
             path: "../ios-react/ios/kit/Debug/ReactBrownfield.xcframework"
         ),
         .binaryTarget(
-            name: "SpeedLibProtocol",
-            path: "../ios-react/ios/kit/Debug/SpeedLibProtocol.xcframework"
+            name: "SpeedLib",
+            path: "../ios-react/ios/kit/Debug/SpeedLib.xcframework"
         ),
         .target(
             name: "Example",
@@ -38,7 +38,7 @@ let package = Package(
                 "ReactNativeKit",
                 "hermes",
                 "ReactBrownfield",
-                "SpeedLibProtocol",
+                "SpeedLib",
             ],
         ),
     ]

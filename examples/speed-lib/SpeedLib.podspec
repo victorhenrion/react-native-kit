@@ -17,8 +17,6 @@ Pod::Spec.new do |s|
     "Sources/**/*.{swift}",
   ]
 
-  s.dependency "SpeedLibProtocol"
-
   s.pod_target_xcconfig = {
     "GCC_PREPROCESSOR_DEFINITIONS" => "$(inherited) FOLLY_NO_CONFIG FOLLY_CFG_NO_COROUTINES",
   }

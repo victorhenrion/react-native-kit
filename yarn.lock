@@ -8744,7 +8744,6 @@ __metadata:
     react-native-kit: "npm:~0.1.0"
     react-native-nitro-modules: "npm:0.26.4"
     speed-lib: "workspace:*"
-    speed-lib-protocol: "workspace:*"
     typescript: "npm:^5.8.3"
   languageName: unknown
   linkType: soft
@@ -8769,7 +8768,6 @@ __metadata:
     react-native-macos: "patch:react-native-macos@npm%3A0.78.3#~/.yarn/patches/react-native-macos-npm-0.78.3-fd14e3ca94.patch"
     react-native-nitro-modules: "npm:0.26.4"
     speed-lib: "workspace:*"
-    speed-lib-protocol: "workspace:*"
     typescript: "npm:^5.8.3"
   languageName: unknown
   linkType: soft
@@ -9763,12 +9761,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"speed-lib-protocol@workspace:*, speed-lib-protocol@workspace:examples/speed-lib-protocol":
-  version: 0.0.0-use.local
-  resolution: "speed-lib-protocol@workspace:examples/speed-lib-protocol"
-  languageName: unknown
-  linkType: soft
-
 "speed-lib@workspace:*, speed-lib@workspace:examples/speed-lib":
   version: 0.0.0-use.local
   resolution: "speed-lib@workspace:examples/speed-lib"
@@ -9784,7 +9776,6 @@ __metadata:
     react: "*"
     react-native: "*"
     react-native-nitro-modules: ^0.26.0
-    speed-lib-protocol: 0.1.0
   languageName: unknown
   linkType: soft
 

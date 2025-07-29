@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "react-native start",
-    "macos": "react-native-kit macos --frameworks=SpeedLibProtocol",
+    "macos": "react-native-kit macos --frameworks=SpeedLib",
     "macos:dev": "yarn macos --configs=Debug --archs=ONLY_ACTIVE"
   },
   "dependencies": {
@@ -14,8 +14,7 @@
     "react-native-kit": "~0.1.0",
     "react-native-macos": "patch:react-native-macos@npm%3A0.78.3#~/.yarn/patches/react-native-macos-npm-0.78.3-fd14e3ca94.patch",
     "react-native-nitro-modules": "0.26.4",
-    "speed-lib": "workspace:*",
-    "speed-lib-protocol": "workspace:*"
+    "speed-lib": "workspace:*"
   },
   "devDependencies": {
     "@babel/core": "~7.28.0",
