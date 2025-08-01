@@ -13,7 +13,7 @@
     "react-native-brownfield-macos": "~0.1.0",
     "react-native-kit": "~0.1.0",
     "react-native-macos": "patch:react-native-macos@npm%3A0.78.3#~/.yarn/patches/react-native-macos-npm-0.78.3-fd14e3ca94.patch",
-    "react-native-nitro-modules": "0.26.4",
+    "react-native-nitro-modules": "0.27.2",
     "speed-lib": "workspace:*"
   },
   "devDependencies": {

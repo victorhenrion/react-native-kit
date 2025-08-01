@@ -20,11 +20,11 @@ namespace margelo::nitro::speedlib::bridge::swift {
   }
   void* _Nonnull get_std__shared_ptr_margelo__nitro__speedlib__HybridSpeedLibSpec_(std__shared_ptr_margelo__nitro__speedlib__HybridSpeedLibSpec_ cppType) {
     std::shared_ptr<margelo::nitro::speedlib::HybridSpeedLibSpecSwift> swiftWrapper = std::dynamic_pointer_cast<margelo::nitro::speedlib::HybridSpeedLibSpecSwift>(cppType);
-  #ifdef NITRO_DEBUG
+    #ifdef NITRO_DEBUG
     if (swiftWrapper == nullptr) [[unlikely]] {
       throw std::runtime_error("Class \"HybridSpeedLibSpec\" is not implemented in Swift!");
     }
-  #endif
+    #endif
     SpeedLib::HybridSpeedLibSpec_cxx& swiftPart = swiftWrapper->getSwiftPart();
     return swiftPart.toUnsafe();
   }

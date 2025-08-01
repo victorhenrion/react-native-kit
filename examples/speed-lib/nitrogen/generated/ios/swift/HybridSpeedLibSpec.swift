@@ -18,8 +18,9 @@ public protocol HybridSpeedLibSpec_protocol: HybridObject {
 }
 
 /// See ``HybridSpeedLibSpec``
-public class HybridSpeedLibSpec_base {
+open class HybridSpeedLibSpec_base {
   private weak var cxxWrapper: HybridSpeedLibSpec_cxx? = nil
+  public init() { }
   public func getCxxWrapper() -> HybridSpeedLibSpec_cxx {
   #if DEBUG
     guard self is HybridSpeedLibSpec else {

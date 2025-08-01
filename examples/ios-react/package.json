@@ -12,7 +12,7 @@
     "react": "19.0.0",
     "react-native": "0.79.5",
     "react-native-kit": "~0.1.0",
-    "react-native-nitro-modules": "0.26.4",
+    "react-native-nitro-modules": "0.27.2",
     "speed-lib": "workspace:*"
   },
   "devDependencies": {

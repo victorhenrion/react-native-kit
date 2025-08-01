@@ -37,17 +37,17 @@
   },
   "devDependencies": {
     "@types/react": "~19.0.0",
-    "nitro-codegen": "0.26.4",
+    "nitro-codegen": "0.27.2",
     "react": "19.0.0",
     "react-native": "0.78.3",
     "react-native-builder-bob": "0.40.13",
-    "react-native-nitro-modules": "0.26.4",
+    "react-native-nitro-modules": "0.27.2",
     "typescript": "^5.8.3"
   },
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
-    "react-native-nitro-modules": "^0.26.0"
+    "react-native-nitro-modules": "^0.27.0"
   },
   "react-native-builder-bob": {
     "source": "src",

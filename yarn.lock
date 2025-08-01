@@ -7931,18 +7931,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nitro-codegen@npm:0.26.4":
-  version: 0.26.4
-  resolution: "nitro-codegen@npm:0.26.4"
+"nitro-codegen@npm:0.27.2":
+  version: 0.27.2
+  resolution: "nitro-codegen@npm:0.27.2"
   dependencies:
     chalk: "npm:^5.3.0"
-    react-native-nitro-modules: "npm:^0.26.4"
+    react-native-nitro-modules: "npm:^0.27.2"
     ts-morph: "npm:^25.0.0"
     yargs: "npm:^17.7.2"
     zod: "npm:^4.0.5"
   bin:
     nitro-codegen: lib/index.js
-  checksum: 10c0/584e2bfc4b6401694dd4d96be2065ce55ecba782c66ec928e8f84ed37db4f71ffcb34615fcc4e4965f564bc961d46568e1ce95fcd099cf78b01e5f0cb3faf681
+  checksum: 10c0/c2f188dafc8b0661023f0893ae3245762fe1bf425c05accc97454c3945741c19ec6111ad81b6323d73d77b2cc979965f72e651fb4daa338c87767675e4130d68
   languageName: node
   linkType: hard
 
@@ -8742,7 +8742,7 @@ __metadata:
     react: "npm:19.0.0"
     react-native: "npm:0.79.5"
     react-native-kit: "npm:~0.1.0"
-    react-native-nitro-modules: "npm:0.26.4"
+    react-native-nitro-modules: "npm:0.27.2"
     speed-lib: "workspace:*"
     typescript: "npm:^5.8.3"
   languageName: unknown
@@ -8766,7 +8766,7 @@ __metadata:
     react-native-brownfield-macos: "npm:~0.1.0"
     react-native-kit: "npm:~0.1.0"
     react-native-macos: "patch:react-native-macos@npm%3A0.78.3#~/.yarn/patches/react-native-macos-npm-0.78.3-fd14e3ca94.patch"
-    react-native-nitro-modules: "npm:0.26.4"
+    react-native-nitro-modules: "npm:0.27.2"
     speed-lib: "workspace:*"
     typescript: "npm:^5.8.3"
   languageName: unknown
@@ -8954,13 +8954,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-nitro-modules@npm:0.26.4, react-native-nitro-modules@npm:^0.26.4":
-  version: 0.26.4
-  resolution: "react-native-nitro-modules@npm:0.26.4"
+"react-native-nitro-modules@npm:0.27.2, react-native-nitro-modules@npm:^0.27.2":
+  version: 0.27.2
+  resolution: "react-native-nitro-modules@npm:0.27.2"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10c0/40ef98a4ead41bc7753120c76c59c77f6d6695f0b4e97223e9de77fe0ab9c74849ae848a9ae58c2b6de8c1ec4f6fe6f02dd27f3aa320b667ea5f73e215961d85
+  checksum: 10c0/81e4252e38553ba77d29c7b9f0d6c6c0973524d577924bafd76ca1c6f9ffaa3ddb6d65dcbb137e0713fd7fdb8d90efd1a95cc6a3219247439bc493ce0b127f80
   languageName: node
   linkType: hard
 
@@ -9766,16 +9766,16 @@ __metadata:
   resolution: "speed-lib@workspace:examples/speed-lib"
   dependencies:
     "@types/react": "npm:~19.0.0"
-    nitro-codegen: "npm:0.26.4"
+    nitro-codegen: "npm:0.27.2"
     react: "npm:19.0.0"
     react-native: "npm:0.78.3"
     react-native-builder-bob: "npm:0.40.13"
-    react-native-nitro-modules: "npm:0.26.4"
+    react-native-nitro-modules: "npm:0.27.2"
     typescript: "npm:^5.8.3"
   peerDependencies:
     react: "*"
     react-native: "*"
-    react-native-nitro-modules: ^0.26.0
+    react-native-nitro-modules: ^0.27.0
   languageName: unknown
   linkType: soft
 
