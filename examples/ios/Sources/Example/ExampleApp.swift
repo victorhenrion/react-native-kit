@@ -1,5 +1,6 @@
 import ReactBrownfield
 import ReactNativeKit
+import SpeedLib  // the goal is to succesfully import this
 import SwiftUI
 
 @main
@@ -15,5 +16,11 @@ struct ExampleApp: App {
         WindowGroup {
             ReactNativeView(moduleName: "App")
         }
+    }
+}
+
+final class HybridSpeedLibTwo: HybridSpeedLibSpec {  // so that i can do this
+    func multiply(a: Double, b: Double) throws -> Double {
+        return a * b
     }
 }

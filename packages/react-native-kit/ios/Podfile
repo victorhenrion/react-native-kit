@@ -54,6 +54,14 @@ target 'ReactNativeKit' do
     PLIST_BUDDY_PATH = '/usr/libexec/PlistBuddy'
 
     installer.pods_project.targets.each do |target|
+      if target.name == 'glog' || target.name == 'React-cxxreact' # fixes namespace issues when enabling objcxx interop - but i'm not sure it's the right way to do it
+        target.build_configurations.each do |config|
+          config.build_settings['DEFINES_MODULE']          = 'NO'
+          config.build_settings['CLANG_ENABLE_MODULES']    = 'NO'
+          config.build_settings['CLANG_ENABLE_MODULE_MAP'] = 'NO'
+        end
+      end
+
       target.build_configurations.each do |config|
         # Preserve anything already in OTHER_SWIFT_FLAGS and just append the skip-flag once
         existing = config.build_settings['OTHER_SWIFT_FLAGS'] || '$(inherited)'

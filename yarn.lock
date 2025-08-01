@@ -8738,7 +8738,6 @@ __metadata:
     "@react-native/metro-config": "npm:0.79.5"
     "@react-native/typescript-config": "npm:0.79.5"
     "@types/react": "npm:~19.0.0"
-    expo: "npm:~53.0.0"
     react: "npm:19.0.0"
     react-native: "npm:0.79.5"
     react-native-kit: "npm:~0.1.0"

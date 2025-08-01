@@ -46,3 +46,14 @@ Always use `--clean` when updating `react-native-kit` or anything other than Pod
 ## Notes
 
 This project is inspired and builds upon the [ios-rn-prebuilt](https://github.com/wafflestudio/ios-rn-prebuilt) repository by @wafflestudio, thanks to them!
+
+## Nitro
+
+I'm trying to import my example Nitro module "SpeedLib" inside my iOS example app.
+
+I'm currently stuck with this error:
+
+```
+examples/ios-react/ios/kit/temp/Debug/iphonesimulator/DerivedData/Build/Intermediates.noindex/ArchiveIntermediates/ReactNativeKit/BuildProductsPath/Debug-iphonesimulator/React-runtimescheduler/React_runtimescheduler.framework/Headers/react/renderer/runtimescheduler/SchedulerPriorityUtils.h:16:39: error: missing '#include "ReactCommon/SchedulerPriority.h"'; 'SchedulerPriority' must be declared before it is used
+static constexpr std::underlying_type<SchedulerPriority>::type serialize(
+```
